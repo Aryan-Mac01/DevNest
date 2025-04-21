@@ -1,0 +1,74 @@
+HTTP - Important points
+
+- HyperText Transfer Protocol
+
+- URL = Uniform Resource Locator
+- URI = Uniform Resource Identifier
+
+1. HTTP Headers = 
+
+a. MetaData: Key-value sent along with request, response
+b. Request Headers -> from client
+c. Response Headers -> from server
+d. Representation Headers -> encoding/compression
+e. Payload Headers -> Data
+
+
+2. Most Common Headers
+
+* Accept: application/json
+* User-Agent
+* Authorization
+* Content-Type
+* Cookie
+* Cache-Control
+
+
+3. CORS
+
+* Access-Control-Allow-Origin
+* Access-Control-Allow-Methods
+* Access-Control-Allow-Credentials
+
+
+4. Security
+
+* Cross-Origin_Embedder-Policy
+* Content-Security-Policy
+* X-XSS-Protection
+* Cross-Origin-Opener-Policy
+
+
+5. HTTP Methods
+
+* GET: Retrieve a Resource
+* POST: Create a Resource
+* PUT: Update a Resource
+* DELETE: Delete a Resource
+* HEAD: No message body(response headers only)
+* OPTIONS: What options are available
+* PATCH: Partially update a Resource
+* TRACE: Loopback test(get same data)
+
+
+6. HTTP Status Code
+
+* 1xx: Informational
+* 2xx: Success
+* 3xx: Redirection
+* 4xx: Client Error
+* 5xx: Server Error
+
+100 - Continue
+102 - Processing
+200 - OK
+201 - Created
+202 - Accepted
+307 - Temporary Redirect
+308 - Permanent Redirect
+400 - Bad Request
+401 - Unauthorized
+402 - Payment Required
+404 - Not found
+500 - Internal Server Error
+504 - GateWay Time Out
