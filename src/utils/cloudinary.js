@@ -12,7 +12,7 @@ import fs from 'fs'; //file system
 
     const uploadOnCloud = async (localFilePath) => {
         try {
-            if(!localfilepath){
+            if(!localFilePath){
                 return null
             }
             //upload the file on cloudinary
