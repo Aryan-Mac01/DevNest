@@ -4,6 +4,22 @@ import {User} from "../models/user.models.js"
 import {uploadOnCloud} from "../utils/cloudinary.js"
 import { ApiResponse } from "../utils/apiResponse.js"
 
+const generateAccessAndRefreshTokens = async(userId)=>{
+    try {
+        const user = await User.findById(userId)
+        const accessToken = user.generateAccessToken()
+        const refreshToken = user.generateRefreshToken()
+
+        user.refreshToken = refreshToken
+        await user.save({validateBeforeSave: false})//just check one field dont validate the whole user object
+
+        return {accessToken, refreshToken} 
+
+    } catch (error) {
+        throw new ApiError(500, "something went wrong while generating tokens")
+    }
+}
+
 const registerUser = asyncHandler( async(req, res) => {
     //get user detail from frontend
     //validation - not empty
@@ -104,7 +120,26 @@ const loginUser = asyncHandler(async(req, res)=>{
         throw new ApiError(401, "Invalid password")
     }
 
-    
+    const {accessToken, refreshToken} =  await generateAccessAndRefreshTokens(user._id)
+
+    const loggedInUser = await User.findByIdAndUpdate(user._id).select("-password -refreshToken")
+
+    const options = {
+        httpsOnly: true,
+        secure: true
+    }
+
+    return res
+    .status(200)
+    .cookie("accessToken", accessToken, options)
+    .cookie("refreshToken", refreshToken, options)
+    .json(
+        new ApiResponse(200, {
+            user:loggedInUser, accessToken, refreshToken
+        },
+        "User logged in successfully"
+    )
+    )
 
 })
 
